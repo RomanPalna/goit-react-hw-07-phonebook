@@ -23,20 +23,21 @@ export const fetchContacts = () => dispatch => {
     .catch(error => dispatch(fetchContactError(error)));
 };
 
-export const addContact = dispatch => (name, number) => {
+export const addContact = (name, number) => dispatch => {
   const contact = {
     name,
     number,
   };
 
   dispatch(addContactRequest());
+
   axios
     .post('/contacts', contact)
-    .then(response => dispatch(addContactSuccess(response.data)))
+    .then(({ data }) => dispatch(addContactSuccess(data)))
     .catch(error => dispatch(addContactError(error)));
 };
 
-export const deleteContact = dispatch => id => {
+export const deleteContact = id => dispatch => {
   dispatch(deleteContactRequest());
 
   axios
