@@ -1,27 +1,43 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import actions from './actions';
+import {
+  filterContacts,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  fetchContactRequest,
+  fetchContactSuccess,
+  fetchContactError,
+} from './actions';
 import { nonDuplicateNames } from './phonebook-selectors';
 
 const items = createReducer([], {
-  [actions.addContactSuccess]: (state, { payload }) =>
+  [fetchContactSuccess]: (_, { payload }) => payload,
+  [addContactSuccess]: (state, { payload }) =>
     nonDuplicateNames(state, payload),
-  [actions.deleteContactSuccess]: (state, action) =>
+  [deleteContactSuccess]: (state, action) =>
     state.filter(({ id }) => id !== action.payload),
 });
 
 const loading = createReducer(false, {
-  [actions.addContactRequest]: () => true,
-  [actions.addContactSuccess]: () => false,
-  [actions.addContactError]: () => false,
+  [fetchContactRequest]: () => true,
+  [fetchContactSuccess]: () => false,
+  [fetchContactError]: () => false,
 
-  [actions.deleteContactRequest]: () => true,
-  [actions.deleteContactSuccess]: () => false,
-  [actions.deleteContactError]: () => false,
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
 });
 
 const filter = createReducer('', {
-  [actions.filterContacts]: (_, action) => action.payload,
+  [filterContacts]: (_, action) => action.payload,
 });
 
 export default combineReducers({

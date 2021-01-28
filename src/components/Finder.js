@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getValueFilter } from '../redux/phonebook-selectors';
-import action from '../redux/actions';
+import { filterContacts } from '../redux/actions';
 
 export default function Filter() {
   const value = useSelector(getValueFilter);
@@ -13,7 +13,7 @@ export default function Filter() {
       <input
         type="text"
         value={value}
-        onChange={e => dispatch(action.filterContacts(e.target.value))}
+        onChange={e => dispatch(filterContacts(e.target.value))}
       ></input>
     </label>
   );

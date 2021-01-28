@@ -1,11 +1,15 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import { showContact } from '../redux/phonebook-selectors';
-import { deleteContact } from '../redux/operations';
+import { deleteContact, fetchContacts } from '../redux/operations';
 
 export default function Contacts() {
   const contacts = useSelector(showContact);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <ul>
@@ -21,3 +25,9 @@ export default function Contacts() {
     </ul>
   );
 }
+
+// const mapDispatchToProps = dispatch => ({
+//   fetchContact: () => dispatch(fetchContacts()),
+// });
+
+// export default connect(null, mapDispatchToProps)(Contacts);
