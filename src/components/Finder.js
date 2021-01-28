@@ -13,7 +13,7 @@ export default function Filter() {
       <input
         type="text"
         value={value}
-        onChange={e => dispatch(action.filter(e.target.value))}
+        onChange={e => dispatch(action.filterContacts(e.target.value))}
       ></input>
     </label>
   );

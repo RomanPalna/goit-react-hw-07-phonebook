@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import actions from "../redux/actions";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../redux/operations';
 
 export default function Phonebook() {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
 
-  const handleChangeName = (e) => {
+  const handleChangeName = e => {
     setName(e.currentTarget.value);
   };
 
-  const handleChangeNumber = (e) => {
+  const handleChangeNumber = e => {
     setNumber(e.currentTarget.value);
   };
 
-  const onSubmit = (name, number) => dispatch(actions.addContact(name, number));
+  const onSubmit = (name, number) => dispatch(addContact(name, number));
 
-  const onAddContact = (e) => {
+  const onAddContact = e => {
     e.preventDefault();
 
     onSubmit(name, number);
 
-    setNumber("");
-    setName("");
+    setNumber('');
+    setName('');
   };
 
   return (
