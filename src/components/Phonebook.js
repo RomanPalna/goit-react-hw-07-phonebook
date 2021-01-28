@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import actions from "../redux/actions";
 
-function Phonebook({ onSubmit }) {
+export default function Phonebook() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
 
   const handleChangeName = (e) => {
     setName(e.currentTarget.value);
@@ -13,6 +14,8 @@ function Phonebook({ onSubmit }) {
   const handleChangeNumber = (e) => {
     setNumber(e.currentTarget.value);
   };
+
+  const onSubmit = (name, number) => dispatch(actions.addContact(name, number));
 
   const onAddContact = (e) => {
     e.preventDefault();
@@ -43,9 +46,3 @@ function Phonebook({ onSubmit }) {
     </div>
   );
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (name, number) => dispatch(actions.addContact(name, number)),
-});
-
-export default connect(null, mapDispatchToProps)(Phonebook);
